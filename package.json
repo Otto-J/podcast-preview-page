@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "publish": "laf storage push bh5nzo-preview-podcast dist",
-    "pub": "laf storage push bh5nzo-preview-podcast dist"
+    "pub": "laf storage push bh5nzo-preview-podcast dist",
+    "pub2": "wrangler pages deploy ./dist"
   },
   "dependencies": {
     "@vime/core": "^5.4.0",
@@ -37,6 +38,7 @@
     "tailwindcss": "^3.3.2",
     "typescript": "~5.0.4",
     "vite": "^4.3.5",
-    "vue-tsc": "^1.6.4"
+    "vue-tsc": "^1.6.4",
+    "wrangler": "^3.0.0"
   }
 }

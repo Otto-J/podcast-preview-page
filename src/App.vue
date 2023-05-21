@@ -68,7 +68,7 @@ const pass = ref(prompt('请输入密码'))
 const getInfoByPassword = async () => {
   const cloud = new Cloud({
     // 这里 APPID 需要换成对应的 APPID
-    baseUrl: 'https://s66p47.laf.dev',
+    baseUrl: 'https://bh5nzo.laf.run',
     // 这里是访问策略的入口地址，如果没有访问策略可不填
     dbProxyUrl: '/proxy/read-podcast',
     // 请求时带的 token，可空

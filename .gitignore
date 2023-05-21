@@ -29,3 +29,4 @@ coverage
 
 .secret.yaml
 laf-code/
+.vercel

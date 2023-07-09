@@ -8,11 +8,11 @@
         <div class="text-xl text-white font-bold">Web Worker 播客</div>
 
         <div class="flex items-center">
-          <a
+          <!-- <a
             href="#"
             class="text-white hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >About</a
-          >
+            >导入本地视频</a
+          > -->
         </div>
       </div>
     </div>
@@ -23,13 +23,30 @@
   >
     <div class="w-full lg:w-10/12 lg:max-w-4xl md:w-full">
       <p class="text-center text-white mb-3">这是《{{ info.title }}》播客试听</p>
+      <!-- <div class="flex justify-center align-top"> -->
       <Player>
         <video-comp :poster="Cover">
           <source :data-src="info.url" type="audio/mp3" />
           <track default kind="subtitles" :src="info.vtt" srclang="zh" label="zh" />
         </video-comp>
-        <DefaultUi noClickToPlay> </DefaultUi>
+        <DefaultUi />
       </Player>
+      <!-- <div>
+          <pre>{{ info.content }}</pre>
+        </div> -->
+      <!-- </div> -->
+
+      <div class="flex justify-center mt-4">
+        <t-space>
+          <t-upload :auto-upload="false" :draggable="true" accept="audio/*" @change="videoChange" />
+          <t-upload :auto-upload="false" :draggable="true" accept=".srt" @change="srtFileChange" />
+        </t-space>
+      </div>
+      <!-- <t-affix v-if="false" ref="affix" :offset-top="40">
+        <t-card style="width: 500px; height: 400px; overflow: auto">
+          <pre>{{ info.content }}</pre>
+        </t-card>
+      </t-affix> -->
     </div>
   </div>
   <footer
@@ -43,6 +60,7 @@
 <script lang="ts" setup>
 // Default theme. ~960B
 import '@vime/core/themes/default.css'
+//  import { tr, ru } from './player-lang';
 
 // Optional light theme (extends default). ~400B
 import '@vime/core/themes/light.css'
@@ -53,17 +71,58 @@ import { Player, DefaultUi, Video as VideoComp, Audio as AudioComp } from '@vime
 import { Cloud } from 'laf-client-sdk'
 import { ref } from 'vue'
 
-// const pass = ref('')
-
 const info = ref({
-  title: '29',
+  title: '635',
   url: '',
-  vtt: ''
+  vtt: '',
+  content: ''
 })
+
+const videoChange = (e: any) => {
+  // console.log(3, e)
+  const [{ raw: file }] = e
+  // console.log(file)
+
+  var videoURL = URL.createObjectURL(file)
+  info.value.url = videoURL
+}
+
+const srtFileChange = (e: any) => {
+  // console.log(e)
+  const [{ raw: file }] = e
+  // 先初始化，定义 onload 行为，最后传递文件
+  var reader = new FileReader()
+  reader.onload = function (e) {
+    if (e.target) {
+      var srtContent = e.target.result as string
+      // console.log('srt 内容', srtContent)
+      var vttContent = coverSrtToVtt(srtContent)
+      console.log('vtt 内容:\n', vttContent)
+      info.value.content = vttContent
+
+      var vttBlob = new Blob([vttContent], { type: 'text/vtt' })
+      // 可以将vttBlob保存到本地或者上传到服务器
+      info.value.vtt = URL.createObjectURL(vttBlob)
+    }
+  }
+
+  reader.readAsText(file)
+}
+
+const coverSrtToVtt = (srt: string) => {
+  // 第一行添加 WEBVTT\n\n
+  let vtt = 'WEBVTT\n\n'
+
+  // 正则表达式替换所有的 (\d{2}),(\d{3}) 为 $1.$2
+  vtt += srt.replace(/(\d{2}),(\d{3})/g, '$1.$2')
+  return vtt
+}
+
+// const pass = ref('')
 
 // 弹窗提示输入 pass
 // const pass = ref('vercel')
-const pass = ref(prompt('请输入密码'))
+// const pass = ref(prompt('请输入密码'))
 
 const getInfoByPassword = async () => {
   const cloud = new Cloud({
@@ -76,6 +135,8 @@ const getInfoByPassword = async () => {
     getAccessToken: () => ''
   })
   const db = cloud.database()
+
+  const pass = ref('')
 
   if (!pass.value) return
   const res = await db
@@ -97,7 +158,7 @@ const getInfoByPassword = async () => {
   }
 }
 
-getInfoByPassword()
+// getInfoByPassword()
 </script>
 
 <style></style>

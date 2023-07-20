@@ -72,9 +72,9 @@ import { Cloud } from 'laf-client-sdk'
 import { ref } from 'vue'
 
 const info = ref({
-  title: '635',
-  url: '',
-  vtt: '',
+  title: 'shenqingchuan',
+  url: '/sqc.MP3',
+  vtt: '/scq.vtt',
   content: ''
 })
 
@@ -148,11 +148,11 @@ const getInfoByPassword = async () => {
   console.log(res)
   if (res.ok && res.data.length > 0) {
     const data = res.data[0]
-    info.value = {
-      title: data.title,
-      url: data.url,
-      vtt: data.vtt
-    }
+    // info.value = {
+    //   title: data.title,
+    //   url: data.url,
+    //   vtt: data.vtt
+    // }
   } else {
     alert('密码错误')
   }

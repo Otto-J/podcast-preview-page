@@ -7,8 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    TAffix: typeof import('tdesign-vue-next')['Affix']
-    TCard: typeof import('tdesign-vue-next')['Card']
     TSpace: typeof import('tdesign-vue-next')['Space']
     TUpload: typeof import('tdesign-vue-next')['Upload']
   }

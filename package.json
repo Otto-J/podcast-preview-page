@@ -10,8 +10,8 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "publish": "laf storage push bh5nzo-preview-podcast dist",
-    "pub": "laf storage push bh5nzo-preview-podcast dist",
+    "publish": "laf storage push owt9b9-preview dist",
+    "pub": "laf storage push owt9b9-preview dist",
     "pub2": "wrangler pages deploy ./dist"
   },
   "dependencies": {

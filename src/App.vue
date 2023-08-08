@@ -72,9 +72,9 @@ import { Cloud } from 'laf-client-sdk'
 import { ref } from 'vue'
 
 const info = ref({
-  title: 'shenqingchuan',
-  url: '/sqc.MP3',
-  vtt: '/scq.vtt',
+  title: '试听',
+  url: '/mp3.MP3',
+  vtt: '/vtt.vtt',
   content: ''
 })
 

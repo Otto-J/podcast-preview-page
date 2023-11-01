@@ -30,3 +30,8 @@ coverage
 .secret.yaml
 laf-code/
 .vercel
+laf.yaml
+.app.yaml
+public/*.mp3
+public/*.MP3
+public/*.vtt
